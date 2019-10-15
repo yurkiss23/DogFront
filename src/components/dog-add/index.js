@@ -6,7 +6,6 @@ class DogAddPage extends Component {
     state = {
         breed: '',
         breeds: [],
-        //dogs: '',
         loading: false,
     }
     onChange = (e) => {
@@ -31,7 +30,7 @@ class DogAddPage extends Component {
                 this.setState({breed: ''});
             }
         );
-        console.log('2--- ',this.props.dogs,' ---')
+        console.log('2--- ',this.state.dogs,' ---')
         setTimeout(() => {
             axios.get(urlDogs).then(
                 (resp) => { 
@@ -43,9 +42,6 @@ class DogAddPage extends Component {
         //console.log('Submit form');
     }
     render() {
-        console.log('1--- ',this.props.dogs,' ---')
-        console.log('---this props dog-add----', this.props);
-        console.log('----add dog state----', this.state);
         const { breeds, loading } = this.state;
         const options = breeds.map(t =>
             <option key={t.id} value={t.id}>{t.name}</option>

@@ -15,31 +15,22 @@ class App extends React.Component {
     breedsSelect: []
   }
 
-  //Подія коли компонент відрендерився посилаємо запит на сервер за даним які необхідні компоненту
   componentDidMount() {
     const urlBreeds='https://localhost:44301/api/breeds/select';
     this.setState({loading: true});
     axios.get(urlBreeds).then(
       (resp) => { 
-        console.log('-----axios res breeds-----', resp);
         this.setState({breedsSelect: resp.data, loading: false});
       }
     );
-    //console.log("------click button-------");
   }
 
   getListDataHandler = (e) => {
     e.preventDefault();
-    // var list = [
-    //   {id: 1, name: 'Шарік', image: 'https://85.img.avito.st/640x480/5408090485.jpg'},
-    //   {id: 2, name: 'Бім', image: 'https://images.ua.prom.st/1605725118_w640_h640_kopilka-sobaka-sharik.jpg'}
-    // ];
-    // this.setState({dogs: list});
     const urlDogs='https://localhost:44301/api/dogs';
     this.setState({loading: true});
     axios.get(urlDogs).then(
       (resp) => { 
-        console.log('-----axios res dogs-----', resp);
         this.setState({dogs: resp.data, loading: false});
       }
     );
@@ -52,22 +43,18 @@ class App extends React.Component {
     this.setState({loading: true});
     axios.post(urlDel).then(
       function(r) {
-        console.log('delete');
       }
     );
     setTimeout(() => {
       axios.get(urlDogs).then(
         (resp) => { 
-          console.log('-----axios res dogs-----', resp);
           this.setState({dogs: resp.data, loading: false});
         }
       );
     }, 500);
   }
   render() {
-    //Дестурктуризація
     const {loading, breedsSelect}= this.state;
-    console.log("--Reander app state--", this.state);
 
     const todoItems = this.state.dogs.map((dog) =>
       <div key={dog.id} className="col-lg-3 col-md-4 col-6">
@@ -94,8 +81,8 @@ class App extends React.Component {
             {todoItems}
           </div>
         </div>
-        
         <DogAddPage breeds={breedsSelect} dogs={this.state}/>
+        
       </React.Fragment>
     );
   }
